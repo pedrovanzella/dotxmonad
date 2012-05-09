@@ -10,6 +10,9 @@ import System.IO
 main = do
 	xmonad $ defaultConfig
 		{ terminal = "terminator"
+		, borderWidth = 2
+		, normalBorderColor = "#cccccc"
+		, focusedBorderColor = "#cd8b00"
 		, manageHook = manageDocks <+> manageHook defaultConfig
 		, layoutHook = avoidStruts  $  layoutHook defaultConfig
 		}
