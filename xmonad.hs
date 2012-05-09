@@ -8,6 +8,7 @@ import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 
 main = do
+	xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
 	xmonad $ defaultConfig
 		{ terminal = "terminator"
 		, borderWidth = 2
@@ -15,4 +16,8 @@ main = do
 		, focusedBorderColor = "#cd8b00"
 		, manageHook = manageDocks <+> manageHook defaultConfig
 		, layoutHook = avoidStruts  $  layoutHook defaultConfig
+		, logHook = dynamicLogWithPP xmobarPP
+						{ ppOutput = hPutStrLn xmproc
+						, ppTitle = xmobarColor "green" "" . shorten 50
+						}
 		}
