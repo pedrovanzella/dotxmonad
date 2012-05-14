@@ -9,6 +9,7 @@ import System.IO
 
 main = do
 	xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
+	xscproc <- spawn "xscreensaver -no-splash &"
 	xmonad $ defaultConfig
 		{ terminal = "terminator"
 		, borderWidth = 2
