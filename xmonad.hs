@@ -5,13 +5,14 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Layout.Spacing
 import System.IO
 
 main = do
 	xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
 	xscproc <- spawn "xscreensaver -no-splash &"
 	xmonad $ defaultConfig
-		{ terminal = "terminator"
+		{ terminal = "urxvt"
 		, borderWidth = 2
 		, normalBorderColor = "#cccccc"
 		, focusedBorderColor = "#cd8b00"
@@ -23,6 +24,6 @@ main = do
 						}
 		} `additionalKeys`
 		[ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-		, ((0, xK_Print), spawn "scrot")
+		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/ScreenShots'")
+		, ((0, xK_Print), spawn "scrot -e 'mv $f ~/ScreenShots'")
 		]
